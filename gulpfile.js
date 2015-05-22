@@ -74,7 +74,6 @@ gulp.task('build-src-jsx', function() {
         beep: true,
         abort: false
     }))
-    .pipe(react({ stripTypes: true })) // Strip Flow type annotations before compiling
     .pipe(babel())
     .pipe(gulp.dest('./build/src'));
 });
@@ -98,7 +97,6 @@ gulp.task('build-index', function() {
         beep: true,
         abort: false
     }))
-    .pipe(react({ stripTypes: true })) // Strip Flow type annotations before compiling
     .pipe(babel({
         // blacklist: ['strict']
     }))
