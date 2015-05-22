@@ -6,12 +6,9 @@ require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less")
 
 require("!style!css!less!./../../../node_modules/font-awesome/less/font-awesome.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      ProductForm    = require('./product-form'),
-
-      Button = ReactBootstrap.Button,
-      Modal  = ReactBootstrap.Modal;
+import React           from 'react';
+import {Button, Modal} from 'react-bootstrap';
+import ProductForm     from './product-form';
 
 class ProductFormModal extends React.Component {
   constructor(props){
@@ -42,4 +39,4 @@ class ProductFormModal extends React.Component {
   }
 }
 
-module.exports = ProductFormModal;
+export default ProductFormModal;

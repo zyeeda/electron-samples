@@ -6,25 +6,21 @@ require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less")
 
 require("!style!css!less!./../../../node_modules/font-awesome/less/font-awesome.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      ProductModal   = require('./product-modal'),
-      myEventMmiter  = require('./../eventemmiter/product-event-emmiter'),
-      productAction  = require('./../actions/product-action'),
-
-      Label        = ReactBootstrap.Label,
-      Input        = ReactBootstrap.Input,
-      ModalTrigger = ReactBootstrap.ModalTrigger;
+import React                        from 'react';
+import {Label, Input, ModalTrigger} from 'react-bootstrap';
+import ProductModal                 from './product-modal';
+import myEventMmiter                from './../eventemmiter/product-event-emmiter';
+import productAction                from './../actions/product-action';
 
 class Product extends React.Component {
-    constructor(props){
-        super(props);
-    }
-    onToggerModal(){
-        // 关闭 Modal, 不做处理默认关闭操作
+    constructor(props, context){
+        super(props, context);
     }
     handleEdit(){
         myEventMmiter.afterHandleEdit(this.props.product);
+    }
+    onToggerModal(){
+        // 不做操作, 默认关闭 modal
     }
     doEdit(){
         let product = {
@@ -34,10 +30,11 @@ class Product extends React.Component {
             status: this.refs.status.getValue(),
         };
 
-        productAction.update(product);
+        myEventMmiter.clearEditStatus();
+        this.context.executeAction(productAction, {product: product, actionType: 'UPDATE'});
     }
     handleCancleDelete(){
-        myEventMmiter.afterHandleCancleEdit();
+        myEventMmiter.clearEditStatus();
     }
     render(){
         let [statusStyleMap, statusRenderMap] = [
@@ -101,7 +98,7 @@ class Product extends React.Component {
                                 <i className="fa fa-pencil"></i>
                             </span>
                             &nbsp;&nbsp;&nbsp;
-                            <ModalTrigger modal={<ProductModal product={this.props.product} onRequestHide={this.onToggerModal.bind(this)} />}>
+                            <ModalTrigger modal={<ProductModal product={this.props.product} />}>
                                 <span className="inlineOperateBtn red" title="删除" onClick={this.onToggerModal.bind(this)}>
                                     <i className="fa fa-trash"></i>
                                 </span>
@@ -130,6 +127,8 @@ class Product extends React.Component {
     }
 }
 
-Product.defaultProps = { url: '/product' };
+Product.contextTypes = {
+    executeAction: React.PropTypes.func
+};
 
-module.exports = Product;
+export default Product;

@@ -4,13 +4,14 @@ require('bootstrap');
 
 require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      Header         = require('./header'),
-      SearchBar      = require('./search-bar'),
-      ProductTable   = require('./product-table'),
+import React        from 'react';
+import {PageHeader} from 'react-bootstrap';
+import Header       from './header';
+import SearchBar    from './search-bar';
+import ProductTable from './product-table';
+import ProductStore from './../store/product-store';
 
-      PageHeader     = ReactBootstrap.PageHeader;
+import {connectToStores, provideContext} from 'fluxible/addons';
 
 class ProductBox extends React.Component {
   constructor(props){
@@ -24,10 +25,24 @@ class ProductBox extends React.Component {
         </PageHeader>
         <SearchBar />
         <br/>
-        <ProductTable />
+        <ProductTable
+          products = {this.props.producAppState.products} />
       </div>
     );
   }
 }
 
-module.exports = ProductBox;
+ProductBox = connectToStores(ProductBox, [ProductStore], function (stores, props) {
+    return {
+        producAppState: stores.ProductStore.getState()
+    };
+});
+
+ProductBox = provideContext(ProductBox);
+
+ProductBox.contextTypes = {
+    getStore: React.PropTypes.func,
+    executeAction: React.PropTypes.func
+};
+
+export default ProductBox;

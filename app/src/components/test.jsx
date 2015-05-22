@@ -1,5 +1,5 @@
 /* @flow */
-const React = require('react');
+import React from 'react';
 
 class Test extends React.Component {
     render(){
@@ -9,4 +9,4 @@ class Test extends React.Component {
     }
 }
 
-module.exports = Test;
+export default Test;

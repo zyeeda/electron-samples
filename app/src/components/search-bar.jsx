@@ -4,26 +4,18 @@ require('bootstrap');
 
 require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      myEventMmiter  = require('./../eventemmiter/product-event-emmiter'),
-
-      Grid      = ReactBootstrap.Grid,
-      Row       = ReactBootstrap.Row,
-      Col       = ReactBootstrap.Col,
-      Input     = ReactBootstrap.Input,
-      Glyphicon = ReactBootstrap.Glyphicon;
+import React                              from 'react';
+import {Grid, Row, Col, Input, Glyphicon} from 'react-bootstrap';
+import myEventMmiter                      from './../eventemmiter/product-event-emmiter';
 
 class SearchBar extends React.Component {
-  constructor(props){
-    super(props);
+  constructor(props, context){
+    super(props, context);
   }
   handleSearch(){
     myEventMmiter.searchIptChange(this.refs.searchIpt.getValue());
   }
   render(){
-    let innerGlyphicon = <Glyphicon glyph='search' />;
-
     return (
       <Grid fluid={true}>
         <Row className='show-grid'>
@@ -36,7 +28,7 @@ class SearchBar extends React.Component {
               groupClassName='group-class'
               wrapperClassName='wrapper-class'
               labelClassName='label-class'
-              addonAfter={innerGlyphicon}
+              addonAfter={<Glyphicon glyph='search' />}
               onChange={this.handleSearch.bind(this)}/>
           </Col>
         </Row>
@@ -45,4 +37,4 @@ class SearchBar extends React.Component {
   }
 }
 
-module.exports = SearchBar;
+export default SearchBar;

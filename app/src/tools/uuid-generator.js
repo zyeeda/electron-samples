@@ -61,4 +61,4 @@ class UUIDGenerator {
   }
 }
 
-module.exports = new UUIDGenerator();
+export default new UUIDGenerator();

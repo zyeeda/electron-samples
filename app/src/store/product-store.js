@@ -1,40 +1,37 @@
 /* @flow */
 
-const ProductDispather  = require('./../dispatchers/product-dispatcher'),
-      Immutable         = require('immutable'),
-      EventEmitter      = require('events').EventEmitter,
-      util              = require('util'),
-      CHANGE_EVENT      = 'change';
+import Immutable   from 'immutable';
+import {BaseStore} from 'fluxible/addons';
 
-class ProductStore extends EventEmitter {
-    constructor(products) {
-        super();
-
-        this.products = products;
+class ProductStore extends BaseStore {
+    constructor(dispatcher) {
+        super(dispatcher);
+        this.products = Immutable.Map({});
     }
-    createProduct(product){
-        this.products = this.products.set(product.id, product);
-        this.emit(CHANGE_EVENT);
+    createProduct(payload){
+        this.products = this.products.set(payload.product.id, payload.product);
+        this.emitChange();
     }
-    updateProduct(product){
-        this.products = this.products.set(product.id, product);
-        this.emit(CHANGE_EVENT);
+    updateProduct(payload){
+        this.products = this.products.set(payload.product.id, payload.product);
+        this.emitChange();
     }
-    deleteProduct(id){
-        this.products = this.products.remove(id);
-        this.emit(CHANGE_EVENT);
+    deleteProduct(payload){
+        this.products = this.products.remove(payload.id);
+        this.emitChange();
     }
-    getAllProducts(){
-        return this.products;
-    }
-    addChangeListener(callback){
-        this.on(CHANGE_EVENT, callback);
-    }
-    removeChangeListener(callback){
-        this.removeListener(CHANGE_EVENT, callback);
+    getState(){
+        return {
+            products: this.products
+        };
     }
 }
 
-module.exports = new ProductStore(
-    Immutable.Map({})
-);
+ProductStore.storeName = 'ProductStore'; // PR open in dispatchr to remove this need
+ProductStore.handlers = {
+    'CREATE': 'createProduct',
+    'UPDATE': 'updateProduct',
+    'DELETE': 'deleteProduct'
+};
+
+export default ProductStore;

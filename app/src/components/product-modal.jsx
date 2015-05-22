@@ -6,16 +6,13 @@ require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less")
 
 require("!style!css!less!./../../../node_modules/font-awesome/less/font-awesome.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      productAction  = require('./../actions/product-action'),
-
-      Button = ReactBootstrap.Button,
-      Modal  = ReactBootstrap.Modal;
+import React           from 'react';
+import {Button, Modal} from 'react-bootstrap';
+import productAction   from './../actions/product-action';
 
 class ProductModal extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(props, context){
+        super(props, context);
     }
     doDelete(){
         let product = this.props.product;
@@ -23,7 +20,7 @@ class ProductModal extends React.Component {
         // 关闭 Modal
         this.props.onRequestHide();
 
-        productAction.delete(product.id);
+        this.context.executeAction(productAction, {id: product.id, actionType: 'DELETE'});
     }
     render(){
         return (
@@ -40,6 +37,8 @@ class ProductModal extends React.Component {
     }
 }
 
-ProductModal.defaultProps = { url: '/product-del' };
+ProductModal.contextTypes = {
+    executeAction: React.PropTypes.func
+};
 
-module.exports = ProductModal;
+export default ProductModal;

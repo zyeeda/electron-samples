@@ -6,12 +6,9 @@ require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less")
 
 require("!style!css!less!./../../../node_modules/font-awesome/less/font-awesome.less");
 
-const React            = require('react'),
-      ReactBootstrap   = require('react-bootstrap'),
-      ProductFormModal = require('./product-form-modal'),
-
-      Button       = ReactBootstrap.Button,
-      ModalTrigger = ReactBootstrap.ModalTrigger;
+import React                  from 'react';
+import {Button, ModalTrigger} from 'react-bootstrap';
+import ProductFormModal       from './product-form-modal';
 
 class Header extends React.Component {
   constructor(props){
@@ -26,4 +23,4 @@ class Header extends React.Component {
   }
 }
 
-module.exports = Header;
+export default Header;

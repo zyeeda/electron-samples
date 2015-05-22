@@ -4,19 +4,14 @@ require('bootstrap');
 
 require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less");
 
-const React          = require('react'),
-      ReactBootstrap = require('react-bootstrap'),
-      productAction  = require('./../actions/product-action'),
-      uuidGenerator  = require('./../tools/uuid-generator'),
-
-      Grid         = ReactBootstrap.Grid,
-      Row          = ReactBootstrap.Row,
-      Col          = ReactBootstrap.Col,
-      Input        = ReactBootstrap.Input;
+import React                   from 'react';
+import {Grid, Row, Col, Input} from 'react-bootstrap';
+import productAction           from './../actions/product-action';
+import uuidGenerator           from './../tools/uuid-generator';
 
 class ProductForm extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(props, context){
+        super(props, context);
     }
     handleFormSubmit(){
         let product = {
@@ -26,7 +21,7 @@ class ProductForm extends React.Component {
             status: this.refs.status.getValue(),
         };
 
-        productAction.create(product);
+        this.context.executeAction(productAction, {product: product, actionType: 'CREATE'});
     }
     render(){
         return (
@@ -69,6 +64,8 @@ class ProductForm extends React.Component {
     }
 }
 
-ProductForm.defaultProps = { url: '/product' };
+ProductForm.contextTypes = {
+    executeAction: React.PropTypes.func
+};
 
-module.exports = ProductForm;
+export default ProductForm;
