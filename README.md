@@ -5,5 +5,5 @@
 5. 运行 `gulp build` 编译项目
 6. 运行 `gulp package` 打包项目
 7. 运行 `gulp watch` 编译、打包并进行 watch
-8. 运行 `gulp run` 可以运行项目
-9. 运行 `npm test` 可以测试项目
+8. 运行 `gulp run` 运行项目
+9. 运行 `npm test` 测试项目
