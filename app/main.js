@@ -21,8 +21,6 @@ app.on('window-all-closed', function() {
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  console.log('running ...');
-  // mainWindow = new BrowserWindow({ width: 800, height: 600, 'use-content-size': true});
   mainWindow = new BrowserWindow({'width: 800, height: 600, use-content-size': true, resizable: true});
 
   // and load the index.html of the app.

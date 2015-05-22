@@ -10,37 +10,43 @@ import Product       from './product';
 import myEventMmiter from './../eventemmiter/product-event-emmiter';
 
 class ProductTable extends React.Component {
-    constructor(props){
+    constructor(props: any): void {
         super(props);
 
         this.state = {filterText: ''};
     }
-    bindEventEmmiterLister(){
+    bindEventEmmiterLister(): void {
         // 过滤列表数据
-        myEventMmiter.on('filterTable', (filterText) =>
+        myEventMmiter.on('filterTable', (filterText: string) => : void
             this.setState({
                 filterText: filterText
             })
         )
 
         // 重新设定处于编辑状态的数据
-        myEventMmiter.on('resetEditStatus', (product) => {
+        myEventMmiter.on('resetEditStatus', (product: any) => : void {
             this.setState({
                 editProduct: product
             });
         })
 
         // 清除数据的编辑状态
-        myEventMmiter.on('clearEditStatus', () =>
+        myEventMmiter.on('clearEditStatus', () => : void
             this.setState({
                 editProduct: null
             })
         )
     }
-    componentWillMount(){
+    componentWillMount(): void {
         this.bindEventEmmiterLister.apply(this);
     }
-    render(){
+    componentWillUnmount(): void {
+        // 删除 eventemmiter 监听的事件
+        myEventMmiter.removeListener('filterTable');
+        myEventMmiter.removeListener('resetEditStatus');
+        myEventMmiter.removeListener('clearEditStatus');
+    }
+    render(): any {
         let [productRows, j, isEdit] = [[], 1, false];
 
         this.props.products.forEach((product) => {
@@ -74,5 +80,9 @@ class ProductTable extends React.Component {
         );
     }
 }
+
+ProductTable.contextTypes = {
+  products: React.PropTypes.array
+};
 
 export default ProductTable;

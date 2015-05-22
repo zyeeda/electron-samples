@@ -11,10 +11,10 @@ import {Button, Modal} from 'react-bootstrap';
 import productAction   from './../actions/product-action';
 
 class ProductModal extends React.Component {
-    constructor(props, context){
+    constructor(props: any, context: any): void {
         super(props, context);
     }
-    doDelete(){
+    doDelete(): void {
         let product = this.props.product;
 
         // 关闭 Modal
@@ -22,7 +22,7 @@ class ProductModal extends React.Component {
 
         this.context.executeAction(productAction, {id: product.id, actionType: 'DELETE'});
     }
-    render(){
+    render(): any {
         return (
             <Modal title = '请确定' onRequestHide = {this.props.onRequestHide} >
                 <div className = 'modal-body' >
@@ -38,7 +38,8 @@ class ProductModal extends React.Component {
 }
 
 ProductModal.contextTypes = {
-    executeAction: React.PropTypes.func
+    executeAction: React.PropTypes.func,
+    onRequestHide: React.PropTypes.func
 };
 
 export default ProductModal;

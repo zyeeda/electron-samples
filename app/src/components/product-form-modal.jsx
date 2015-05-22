@@ -1,4 +1,5 @@
 /* @flow */
+
 global.jQuery = require('jquery');
 require('bootstrap');
 
@@ -11,17 +12,17 @@ import {Button, Modal} from 'react-bootstrap';
 import ProductForm     from './product-form';
 
 class ProductFormModal extends React.Component {
-  constructor(props){
+  constructor(props: any): void {
     super(props);
   }
-  handleFormSubmit(){
+  handleFormSubmit(): void {
     // 调用表单的提交方法提交数据
     this.refs.productForm.handleFormSubmit();
 
     // 关闭 Modal
     this.props.onRequestHide();
   }
-  render(){
+  render(): any {
     return (
       <Modal
         bsStyle = 'primary'
@@ -38,5 +39,9 @@ class ProductFormModal extends React.Component {
     );
   }
 }
+
+ProductFormModal.contextTypes = {
+  onRequestHide: React.PropTypes.func
+};
 
 export default ProductFormModal;

@@ -10,10 +10,10 @@ import productAction           from './../actions/product-action';
 import uuidGenerator           from './../tools/uuid-generator';
 
 class ProductForm extends React.Component {
-    constructor(props, context){
+    constructor(props: any, context: any): void {
         super(props, context);
     }
-    handleFormSubmit(){
+    handleFormSubmit(): void {
         let product = {
             id: uuidGenerator.uuid(),
             name: this.refs.name.getValue(),
@@ -23,7 +23,7 @@ class ProductForm extends React.Component {
 
         this.context.executeAction(productAction, {product: product, actionType: 'CREATE'});
     }
-    render(){
+    render(): any {
         return (
             <Grid fluid={true}>
                 <Row className='show-grid'>

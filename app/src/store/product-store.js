@@ -4,23 +4,23 @@ import Immutable   from 'immutable';
 import {BaseStore} from 'fluxible/addons';
 
 class ProductStore extends BaseStore {
-    constructor(dispatcher) {
+    constructor(dispatcher: any): void {
         super(dispatcher);
         this.products = Immutable.Map({});
     }
-    createProduct(payload){
+    createProduct(payload: any): void{
         this.products = this.products.set(payload.product.id, payload.product);
         this.emitChange();
     }
-    updateProduct(payload){
+    updateProduct(payload: any): void {
         this.products = this.products.set(payload.product.id, payload.product);
         this.emitChange();
     }
-    deleteProduct(payload){
+    deleteProduct(payload: any): void {
         this.products = this.products.remove(payload.id);
         this.emitChange();
     }
-    getState(){
+    getState(): any {
         return {
             products: this.products
         };

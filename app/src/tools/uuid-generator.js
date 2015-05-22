@@ -3,7 +3,7 @@ class UUIDGenerator {
     this.ORIGNAL_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
   }
 
-  uuid(len, radix){
+  uuid(len: number, radix: number): string {
     let chars = this.ORIGNAL_CHARS;
 
     let [uuid, finalRadix] = [[], radix || chars.length];
@@ -31,7 +31,7 @@ class UUIDGenerator {
 
   // A more performant, but slightly bulkier, RFC4122v4 solution.  We boost performance
   // by minimizing calls to random()
-  uuidFast(){
+  uuidFast(): string {
     let [chars, uuid, rnd] = [this.ORIGNAL_CHARS, new Array(36), 0];
 
     for (let i = 0; i < 36; i++) {
@@ -51,7 +51,7 @@ class UUIDGenerator {
   }
 
   // A more compact, but less performant, RFC4122v4 solution:
-  uuidCompact(){
+  uuidCompact(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       let r = Math.random() * 16 | 0;
       let v = c == 'x' ? r : (r & 0x3 | 0x8);

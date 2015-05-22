@@ -1,4 +1,5 @@
 /* @flow */
+
 global.jQuery = require('jquery');
 require('bootstrap');
 
@@ -11,10 +12,10 @@ import {Button, ModalTrigger} from 'react-bootstrap';
 import ProductFormModal       from './product-form-modal';
 
 class Header extends React.Component {
-  constructor(props){
+  constructor(props: any): void {
     super(props);
   }
-  render(){
+  render(): any {
     return (
       <ModalTrigger modal={<ProductFormModal />}>
         <Button className="pull-right" bsStyle='success'><i className="fa fa-plus"></i>  新增产品</Button>

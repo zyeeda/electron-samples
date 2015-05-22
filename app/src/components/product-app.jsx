@@ -1,4 +1,5 @@
 /* @flow */
+
 global.jQuery = require('jquery');
 require('bootstrap');
 
@@ -13,11 +14,11 @@ import ProductStore from './../store/product-store';
 
 import {connectToStores, provideContext} from 'fluxible/addons';
 
-class ProductBox extends React.Component {
-  constructor(props){
+class ProductApp extends React.Component {
+  constructor(props: any): void {
     super(props);
   }
-  render(){
+  render(): any {
     return (
       <div className="container">
         <PageHeader>产品
@@ -32,17 +33,18 @@ class ProductBox extends React.Component {
   }
 }
 
-ProductBox = connectToStores(ProductBox, [ProductStore], function (stores, props) {
-    return {
-        producAppState: stores.ProductStore.getState()
-    };
+ProductApp = connectToStores(ProductApp, [ProductStore], function (stores: any, props: any): any {
+  return {
+    producAppState: stores.ProductStore.getState()
+  };
 });
 
-ProductBox = provideContext(ProductBox);
+ProductApp = provideContext(ProductApp);
 
-ProductBox.contextTypes = {
-    getStore: React.PropTypes.func,
-    executeAction: React.PropTypes.func
+ProductApp.contextTypes = {
+  getStore: React.PropTypes.func,
+  executeAction: React.PropTypes.func,
+  producAppState: React.PropTypes.object
 };
 
-export default ProductBox;
+export default ProductApp;

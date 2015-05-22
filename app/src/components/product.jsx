@@ -13,16 +13,16 @@ import myEventMmiter                from './../eventemmiter/product-event-emmite
 import productAction                from './../actions/product-action';
 
 class Product extends React.Component {
-    constructor(props, context){
+    constructor(props: any, context: any): void {
         super(props, context);
     }
-    handleEdit(){
+    handleEdit(): void {
         myEventMmiter.afterHandleEdit(this.props.product);
     }
-    onToggerModal(){
+    onToggerModal(): void {
         // 不做操作, 默认关闭 modal
     }
-    doEdit(){
+    doEdit(): void {
         let product = {
             id: this.props.product.id,
             name: this.refs.name.getValue(),
@@ -33,10 +33,10 @@ class Product extends React.Component {
         myEventMmiter.clearEditStatus();
         this.context.executeAction(productAction, {product: product, actionType: 'UPDATE'});
     }
-    handleCancleDelete(){
+    handleCancleDelete(): void {
         myEventMmiter.clearEditStatus();
     }
-    render(){
+    render(): any {
         let [statusStyleMap, statusRenderMap] = [
         {
             init: 'info',
@@ -128,7 +128,9 @@ class Product extends React.Component {
 }
 
 Product.contextTypes = {
-    executeAction: React.PropTypes.func
+    executeAction: React.PropTypes.func,
+    product: React.PropTypes.object,
+    isEdit: React.PropTypes.bool
 };
 
 export default Product;

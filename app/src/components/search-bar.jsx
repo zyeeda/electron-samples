@@ -9,13 +9,13 @@ import {Grid, Row, Col, Input, Glyphicon} from 'react-bootstrap';
 import myEventMmiter                      from './../eventemmiter/product-event-emmiter';
 
 class SearchBar extends React.Component {
-  constructor(props, context){
-    super(props, context);
+  constructor(props: any): void {
+    super(props);
   }
-  handleSearch(){
+  handleSearch(): void {
     myEventMmiter.searchIptChange(this.refs.searchIpt.getValue());
   }
-  render(){
+  render(): any {
     return (
       <Grid fluid={true}>
         <Row className='show-grid'>

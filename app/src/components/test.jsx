@@ -2,7 +2,7 @@
 import React from 'react';
 
 class Test extends React.Component {
-    render(){
+    render(): any {
         return (
             <h1>Hello!</h1>
         );
