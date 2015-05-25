@@ -1,10 +1,5 @@
 /* @flow */
 
-global.jQuery = require('jquery');
-require('bootstrap');
-
-require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less");
-
 import React        from 'react';
 import {PageHeader} from 'react-bootstrap';
 import Header       from './header';

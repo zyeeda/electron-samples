@@ -1,3 +1,5 @@
+/* @flow */
+
 class UUIDGenerator {
   constructor(){
     this.ORIGNAL_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');

@@ -1,4 +1,5 @@
 /* @flow */
+
 import {EventEmitter} from 'events';
 
 class ProductAppEventEmmiter extends EventEmitter {

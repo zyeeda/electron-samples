@@ -1,12 +1,5 @@
 /* @flow */
 
-global.jQuery = require('jquery');
-require('bootstrap');
-
-require("!style!css!less!./../../../node_modules/bootstrap/less/bootstrap.less");
-
-require("!style!css!less!./../../../node_modules/font-awesome/less/font-awesome.less");
-
 import React                  from 'react';
 import {Button, ModalTrigger} from 'react-bootstrap';
 import ProductFormModal       from './product-form-modal';
