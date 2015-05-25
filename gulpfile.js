@@ -1,5 +1,4 @@
 var gulp      = require('gulp');
-var react     = require('gulp-react');
 var flow      = require('gulp-flowtype');
 var babel     = require('gulp-babel');
 var watch     = require('gulp-watch');
@@ -97,9 +96,7 @@ gulp.task('build-index', function() {
         beep: true,
         abort: false
     }))
-    .pipe(babel({
-        // blacklist: ['strict']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('./build'));
 });
 
@@ -114,10 +111,7 @@ gulp.task('build-test', function() {
         beep: true,
         abort: false
     }))
-    .pipe(react({ stripTypes: true })) // Strip Flow type annotations before compiling
-    .pipe(babel({
-        // blacklist: ['strict']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('./build/__tests__'));
 });
 
