@@ -12,11 +12,6 @@ import Fluxible from 'fluxible';
 import ProductApp from './src/components/product-app';
 import ProductStore from './src/store/product-store';
 
-// 为所有字符串对象添加去前后空格函数
-String.prototype.trim = function(){
-    return this.replace(/(^\s*)|(\s*$)/g, "");
-};
-
 let fluxibleApp = new Fluxible({
     component: ProductApp,
     stores: [

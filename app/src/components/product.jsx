@@ -25,7 +25,7 @@ class Product extends React.Component {
         };
 
         myEventMmiter.clearEditStatus();
-        this.context.executeAction(productAction, {product: product, actionType: 'UPDATE'});
+        this.context.executeAction(productAction, {product, actionType: 'UPDATE'});
     }
     handleCancleDelete(): void {
         myEventMmiter.clearEditStatus();

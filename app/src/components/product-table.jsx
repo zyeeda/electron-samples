@@ -2,6 +2,7 @@
 
 import React         from 'react';
 import {Table}       from 'react-bootstrap';
+import _             from 'lodash';
 import Product       from './product';
 import myEventMmiter from './../eventemmiter/product-event-emmiter';
 
@@ -46,7 +47,7 @@ class ProductTable extends React.Component {
         let [productRows, j, isEdit] = [[], 1, false];
 
         this.props.products.forEach((product) => {
-            if (this.state.filterText.trim() === '' || (this.state.filterText.trim() !== '' && (product.name.indexOf(this.state.filterText) !== -1 || product.model.indexOf(this.state.filterText) !== -1))){
+            if (_.trim(this.state.filterText) === '' || (_.trim(this.state.filterText) !== '' && (product.name.indexOf(_.trim(this.state.filterText)) !== -1 || product.model.indexOf(_.trim(this.state.filterText)) !== -1))){
 
                 if(this.state.editProduct && this.state.editProduct.id === product.id){
                     isEdit = true;

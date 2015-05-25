@@ -1,7 +1,6 @@
 /* @flow */
 
 import React        from 'react';
-import {PageHeader} from 'react-bootstrap';
 import Header       from './header';
 import SearchBar    from './search-bar';
 import ProductTable from './product-table';
@@ -16,9 +15,7 @@ class ProductApp extends React.Component {
   render(): any {
     return (
       <div className="container">
-        <PageHeader>产品
-          <Header />
-        </PageHeader>
+        <Header />
         <SearchBar />
         <br/>
         <ProductTable

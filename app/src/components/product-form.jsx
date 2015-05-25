@@ -17,7 +17,7 @@ class ProductForm extends React.Component {
             status: this.refs.status.getValue(),
         };
 
-        this.context.executeAction(productAction, {product: product, actionType: 'CREATE'});
+        this.context.executeAction(productAction, {product, actionType: 'CREATE'});
     }
     render(): any {
         return (
