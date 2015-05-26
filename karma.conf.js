@@ -4,7 +4,7 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     // frameworks: ['jasmine', 'browserify'],
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine-jquery', 'jasmine'],
     files: [
       'build/__tests__/**/*.js'
     ],
@@ -30,7 +30,7 @@ module.exports = function(config) {
             { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
           ]
         }
-    }, 
+    },
     // reporters: ['progress', 'coverage'],
     // reporters: ['progress'],
     port: 9876,
@@ -49,6 +49,7 @@ module.exports = function(config) {
       require("karma-coverage"),
       require("karma-electron-launcher"),
       require("karma-jasmine"),
+      require("karma-jasmine-jquery"),
       require("karma-requirejs"),
       require("karma-webpack")
     ]
