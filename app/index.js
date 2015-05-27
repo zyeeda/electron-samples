@@ -4,7 +4,7 @@ global.jQuery = require('jquery');
 require('bootstrap');
 
 require("!style!css!less!./../node_modules/bootstrap/less/bootstrap.less");
-require("!style!css!less!./../node_modules/font-awesome/less/font-awesome.less");
+require("!style!css!sass!./../node_modules/font-awesome/scss/font-awesome.scss");
 require("!style!css!sass!./src/common/main.scss");
 
 import React from 'react';
