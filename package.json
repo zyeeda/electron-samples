@@ -1,11 +1,14 @@
 {
   "name": "electron-samples",
-  "version": "0.0.1",
-  "description": "",
-  "main": "main.js",
+  "version": "0.1.0",
+  "description": "A sample application for Electron.",
+  "main": "./build/src/main.js",
   "dependencies": {
-    "bootstrap": "^3.3.4",
+    "bootstrap-sass": "^3.3.4",
+    "react-bootstrap": "^0.22.5",
+    "font-awesome": "^4.3.0",
     "jquery": "^2.1.4",
+    "fluxible": "^0.4.9",
     "react": "^0.13.3"
   },
   "devDependencies": {
@@ -13,22 +16,27 @@
     "browserify": "^7.0.3",
     "browserify-istanbul": "^0.1.2",
     "css-loader": "^0.12.1",
+    "eslint": "^0.22.1",
+    "eslint-plugin-react": "^2.4.0",
     "file-loader": "^0.8.1",
     "flow-typestrip": "latest",
     "flux": "^2.0.3",
-    "fluxible": "^0.4.9",
-    "font-awesome": "^4.3.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-changed": "^1.2.1",
+    "gulp-concat": "^2.5.2",
     "gulp-exec": "^2.1.1",
     "gulp-flowtype": "^0.4.7",
-    "gulp-karma": "0.0.4",
+    "gulp-karma": "^0.0.4",
+    "gulp-livereload": "^3.8.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-react": "^3.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
+    "gulp-shell": "^0.4.1",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.4",
-    "gulp-watch": "^4.2.4",
     "gulp-webpack": "^1.4.0",
     "harmony": "^0.0.1",
     "immutable": "^3.7.2",
@@ -52,7 +60,6 @@
     "minami": "^1.1.0",
     "node-libs-browser": "^0.5.0",
     "node-sass": "^3.1.1",
-    "react-bootstrap": "^0.22.5",
     "react-tools": "^0.12.2",
     "reactify": "^0.17.1",
     "requirejs": "^2.1.15",
@@ -66,6 +73,10 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start"
   },
-  "author": "shupeipei",
-  "license": "ISC"
+  "author": "Rui Tang <tangrui@zyeeda.com>",
+  "contributors": [
+    "Shusen Gu <gushusen@zyeeda.com",
+    "Peipei Shu <shupeipei@zyeeda.com"
+  ],
+  "license": "Apache License 2.0"
 }
