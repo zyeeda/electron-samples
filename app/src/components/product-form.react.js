@@ -3,7 +3,7 @@
 import React from 'react';
 import {Grid, Row, Col, Input} from 'react-bootstrap';
 import productAction from '../actions/product-action';
-import uuidGenerator from '../tools/uuid-generator';
+import uuid from 'uuid';
 
 class ProductForm extends React.Component {
   render(): any {
@@ -49,7 +49,7 @@ class ProductForm extends React.Component {
 
   handleFormSubmit(): void {
     let product = {
-      id: uuidGenerator.uuid(),
+      id: uuid.v1(),
       name: this.refs.name.getValue(),
       model: this.refs.model.getValue(),
       status: this.refs.status.getValue()
