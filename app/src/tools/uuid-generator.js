@@ -1,7 +1,7 @@
 /* @flow */
 
 class UUIDGenerator {
-  constructor(){
+  constructor() {
     this.ORIGNAL_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
   }
 
@@ -23,7 +23,7 @@ class UUIDGenerator {
       for (let i = 0; i < 36; i++) {
         if (!uuid[i]) {
           let r = 0 | Math.random() * 16;
-          uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+          uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r];
         }
       }
     }
@@ -37,15 +37,15 @@ class UUIDGenerator {
     let [chars, uuid, rnd] = [this.ORIGNAL_CHARS, new Array(36), 0];
 
     for (let i = 0; i < 36; i++) {
-      if (i == 8 || i == 13 ||  i == 18 || i == 23) {
+      if (i === 8 || i === 13 || i === 18 || i === 23) {
         uuid[i] = '-';
-      } else if (i == 14) {
+      } else if (i === 14) {
         uuid[i] = '4';
       } else {
         if (rnd <= 0x02) rnd = 0x2000000 + (Math.random() * 0x1000000) | 0;
         let r = rnd & 0xf;
         rnd = rnd >> 4;
-        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+        uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r];
       }
     }
 
@@ -56,7 +56,7 @@ class UUIDGenerator {
   uuidCompact(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       let r = Math.random() * 16 | 0;
-      let v = c == 'x' ? r : (r & 0x3 | 0x8);
+      let v = c === 'x' ? r : (r & 0x3 | 0x8);
 
       return v.toString(16).toLowerCase();
     });

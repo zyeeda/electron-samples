@@ -1,0 +1,37 @@
+$icon-font-path: "../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+$fa-font-path: "../../../node_modules/font-awesome/fonts/";
+@import '../../../node_modules/font-awesome/scss/font-awesome';
+
+$color: #4d926f;
+
+body {
+  color: $color;
+}
+
+h3 {
+  padding-left: 50px !important;
+  background-repeat: no-repeat;
+  background-position: 5px 12px;
+}
+
+.form-group {
+  margin-bottom: 0px !important;
+}
+
+.inlineOperateBtn {
+  cursor: pointer;
+}
+
+.red {
+  color: #dd5a43 !important;
+}
+
+.green {
+  color: green !important;
+}
+
+.btn-grey {
+  background-color: #abbac3 !important;
+}

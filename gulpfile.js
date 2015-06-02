@@ -1,138 +1,85 @@
-var gulp      = require('gulp');
-var flow      = require('gulp-flowtype');
-var babel     = require('gulp-babel');
-var watch     = require('gulp-watch');
-var sass      = require('gulp-sass');
-var karma     = require('gulp-karma');
-var childExec = require('child_process').exec;
-var webpack   = require('gulp-webpack');
+const gulp = require('gulp');
+// const gutil = require('gulp-util');
+const changed = require('gulp-changed');
+const plumber = require('gulp-plumber');
+const sourcemaps = require('gulp-sourcemaps');
+const flow = require('gulp-flowtype');
+const babel = require('gulp-babel');
+const livereload = require('gulp-livereload');
+const scss = require('gulp-sass');
+const concat = require('gulp-concat');
+// const karma = require('gulp-karma');
+// const shell = require('gulp-shell');
+// const packageJson = require('./package.json');
 
-// js 程序文件路径
-var jsPaths = [
-    './app/src/**/*.js',
-    './app/src/*.js'
-];
+/*const options = {
+  name: 'Spectacular'
+};*/
 
-// jsx 程序文件路径
-var jsxPaths = [
-    './app/src/**/*.jsx',
-    './app/src/*.jsx'
-];
-
-// assets 程序文件路径
-var assetsPaths = [
-  './app/src/*.scss',
-  './app/src/**/*.scss',
-  './app/src/*.css',
-  './app/src/**/*.css',
-  './app/src/*.jpg',
-  './app/src/**/*.jpg',
-  './app/src/*.png',
-  './app/src/**/*.png',
-  './app/src/*.jpeg',
-  './app/src/**/*.jpeg',
-  './app/src/*.gif',
-  './app/src/**/*.gif'
-];
-var indexPath = ['./app/index.js'];
-
-// 测试文件路径
-var testPaths = [
-    './app/__tests__/**/*.js',
-    './app/__tests__/**/*.jsx',
-    './app/__tests__/*.js',
-    './app/__tests__/*.jsx'
-];
-
-// 所有文件路径
-var allPaths = jsPaths.concat(jsxPaths).concat(indexPath).concat(testPaths);
-
-// 编译 js 程序文件
-gulp.task('build-src-js', function() {
-  return gulp.src(jsPaths)
+gulp.task('js', function runTask() {
+  return gulp.src('app/src/**/*.js')
+    .pipe(plumber())
+    .pipe(changed('./build/src'))
+    .pipe(sourcemaps.init())
     .pipe(flow({
-        all: false,
-        weak: false,
-        declarations: './declarations',
-        killFlow: false,
-        beep: true,
-        abort: false
+        declarations: './declarations'
     }))
     .pipe(babel())
-    .pipe(gulp.dest('./build/src'));
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./build/src'))
+    .pipe(livereload());
 });
 
-// 编译 jsx 程序文件
-gulp.task('build-src-jsx', function() {
-  return gulp.src(jsxPaths)
-    .pipe(flow({
-        all: false,
-        weak: false,
-        declarations: './declarations',
-        killFlow: false,
-        beep: true,
-        abort: false
-    }))
-    .pipe(babel())
-    .pipe(gulp.dest('./build/src'));
+gulp.task('images', function runTask() {
+  return gulp.src('app/assets/images/*', { base: 'app' })
+    .pipe(plumber())
+    .pipe(changed('./build/assets/images'))
+    .pipe(gulp.dest('./build'))
+    .pipe(livereload());
 });
 
-// 编译 jsx 程序文件
-gulp.task('copy-src-assets', function() {
-  return gulp.src(assetsPaths)
-    .pipe(gulp.dest('./build/src'));
-});
-// 编译 src
-gulp.task('build-src', ['build-src-js', 'build-src-jsx', 'copy-src-assets']);
-
-// index.js 与 src 下的文件一起编译，index.js 会被放到 src下，所以此处需要独立编译
-gulp.task('build-index', function() {
-  return gulp.src(indexPath)
-    .pipe(flow({
-        all: false,
-        weak: false,
-        declarations: './declarations',
-        killFlow: false,
-        beep: true,
-        abort: false
-    }))
-    .pipe(babel())
-    .pipe(gulp.dest('./build'));
+gulp.task('styles', function runTask() {
+  return gulp.src('app/assets/styles/main.scss', { base: 'app' })
+    .pipe(plumber())
+    .pipe(changed('./build/assets/styles'))
+    .pipe(sourcemaps.init())
+    .pipe(scss())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./build'))
+    .pipe(concat('main.css'))
+    .pipe(livereload());
 });
 
-// 编译测试文件
-gulp.task('build-test', function() {
-  return gulp.src(testPaths)
-    .pipe(flow({
-        all: false,
-        weak: false,
-        declarations: './declarations',
-        killFlow: false,
-        beep: true,
-        abort: false
-    }))
-    .pipe(babel())
-    .pipe(gulp.dest('./build/__tests__'));
+gulp.task('copy', function runTask() {
+  gulp.src('index.html')
+    .pipe(gulp.dest('./build'))
+    .pipe(livereload());
+
+  gulp.src('app/assets/fonts/**', { base: 'app' })
+    .pipe(changed('./build/assets/fonts'))
+    .pipe(gulp.dest('./build'))
+    .pipe(livereload());
 });
 
-// 复制 app 相关配置文件
-gulp.task('copy-config', function() {
-  return gulp.src(['./app/index.html', './app/main.js', './app/package.json'])
-    .pipe(gulp.dest('./build'));
+gulp.task('default', ['js', 'images', 'styles', 'copy'], function defaultTask() {
+  gulp.watch('app/src/**/*.js', ['js']);
+  gulp.watch('app/assets/images/*', ['images']);
+  gulp.watch('app/assets/styles/main.scss', ['styles']);
+  gulp.watch('index.html', ['copy']);
+
+  livereload.listen();
 });
 
-// 编译所有文件
-gulp.task('build', ['copy-config', 'build-index', 'build-src', 'build-test']);
-
+// gulp.task('build-src', ['build-src-js', 'build-src-jsx', 'copy-src-assets']);
 
 // 复制 electron 配置文件
-gulp.task('copy-electron', function() {
+/*gulp.task('copy-electron', function() {
   return gulp.src(['./build/index.html', './build/main.js', './build/package.json'])
     .pipe(gulp.dest('./dist'));
-});
+});*/
 
 // 打包
-gulp.task('package', ['copy-electron', 'build'], function() {
+/*gulp.task('package', ['copy-electron', 'build'], function() {
   return gulp.src('./build/index.js')
     .pipe(webpack({
         output: {
@@ -149,9 +96,9 @@ gulp.task('package', ['copy-electron', 'build'], function() {
           }
     }))
     .pipe(gulp.dest('./dist'));
-});
+});*/
 
-gulp.task( 'watch-src', [], function(){
+/*gulp.task( 'watch-src', [], function(){
     gulp.watch(jsPaths, [ 'build-src-js', 'package'] );
     gulp.watch(jsxPaths, [ 'build-src-jsx', 'package'] );
 });
@@ -168,7 +115,7 @@ gulp.task( 'watch-test', [], function(){
     gulp.watch(testPaths, [ 'build-test', 'package'] );
 });
 
-gulp.task( 'watch', ['build', 'package', 'watch-src','watch-src-assets', 'watch-index', 'watch-test']);
+gulp.task( 'watch', ['build', 'package', 'watch-src','watch-src-assets', 'watch-index', 'watch-test']);*/
 
 // 运行测试 --无法输出日志信息
 // gulp.task('test', function (cb) {
@@ -188,9 +135,9 @@ gulp.task( 'watch', ['build', 'package', 'watch-src','watch-src-assets', 'watch-
 // });
 
 // 使用 gulp-karma 组件进行测试，无法输入日志（可能是 gulp-karma 组件存在问题）
-gulp.task('test', function() {
+/*gulp.task('test', function() {
   // Be sure to return the stream
-  return gulp.src(['./build/**/*.js'])
+  return gulp.src(['./build//*.js'])
     .pipe(karma({
       configFile: __dirname + '/karma.conf.js',
       action: 'run'
@@ -200,10 +147,10 @@ gulp.task('test', function() {
       console.log(err);
       throw err;
     });
-});
+});*/
 
 // 运行 electron
-gulp.task('run', function (cb) {
+/*gulp.task('run', function (cb) {
   var cmd = 'electron ' + __dirname + '/dist';
   var child = childExec(cmd, function (err, stdout, stderr) {
     console.log(stdout);
@@ -218,4 +165,4 @@ gulp.task('run', function (cb) {
   child.stderr.on('info', function (info) {
     console.log(info);
   });
-});
+});*/
