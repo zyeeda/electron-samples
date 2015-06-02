@@ -27,7 +27,7 @@ class Product extends React.Component {
         myEventMmiter.clearEditStatus();
         this.context.executeAction(productAction, {product, actionType: 'UPDATE'});
     }
-    handleCancleDelete(): void {
+    handleCancleEdit(): void {
         myEventMmiter.clearEditStatus();
     }
     render(): any {
@@ -82,7 +82,7 @@ class Product extends React.Component {
                                 <i className="fa fa-check"></i>
                             </span>
                             &nbsp;&nbsp;&nbsp;
-                            <span className="inlineOperateBtn red" title="取消" onClick={this.handleCancleDelete.bind(this)}>
+                            <span className="inlineOperateBtn red" title="取消" onClick={this.handleCancleEdit.bind(this)}>
                                 <i className="fa fa-times"></i>
                             </span>
                         </div>

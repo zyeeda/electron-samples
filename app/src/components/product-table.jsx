@@ -79,7 +79,7 @@ class ProductTable extends React.Component {
 }
 
 ProductTable.contextTypes = {
-  products: React.PropTypes.array
+  products: React.PropTypes.object
 };
 
 export default ProductTable;
