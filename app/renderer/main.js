@@ -1,7 +1,7 @@
 /* @flow */
 
 global.jQuery = require('jquery');
-require('bootstrap');
+require('bootstrap-sass');
 
 import React from 'react';
 import Fluxible from 'fluxible';
