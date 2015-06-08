@@ -8,6 +8,7 @@ const babel = require('gulp-babel');
 const livereload = require('gulp-livereload');
 const scss = require('gulp-sass');
 const concat = require('gulp-concat');
+const eslint = require('gulp-eslint');
 // const karma = require('gulp-karma');
 // const shell = require('gulp-shell');
 // const packageJson = require('./package.json');
@@ -16,30 +17,44 @@ const concat = require('gulp-concat');
   name: 'Spectacular'
 };*/
 
-gulp.task('js', function runTask() {
-  return gulp.src('app/src/**/*.js')
+const jsPath = ['app/**/*.js'];
+const imagePath = ['app/assets/images/**'];
+const stylePath = ['app/assets/styles/main.scss'];
+const fontPath = ['app/assets/fonts/**'];
+const menuPath = ['app/assets/menus/**'];
+const indexPath = ['app/index.html'];
+
+gulp.task('lint', function _run() {
+  return gulp.src(jsPath)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
+});
+
+gulp.task('js', ['lint'], function _run() {
+  return gulp.src(jsPath, {base: 'app'})
     .pipe(plumber())
-    .pipe(changed('./build/src'))
+    .pipe(changed('./build'))
     .pipe(sourcemaps.init())
     .pipe(flow({
         declarations: './declarations'
     }))
     .pipe(babel())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./build/src'))
+    .pipe(gulp.dest('./build'))
     .pipe(livereload());
 });
 
-gulp.task('images', function runTask() {
-  return gulp.src('app/assets/images/*', { base: 'app' })
+gulp.task('images', function _run() {
+  return gulp.src(imagePath, {base: 'app'})
     .pipe(plumber())
     .pipe(changed('./build/assets/images'))
     .pipe(gulp.dest('./build'))
     .pipe(livereload());
 });
 
-gulp.task('styles', function runTask() {
-  return gulp.src('app/assets/styles/main.scss', { base: 'app' })
+gulp.task('styles', function _run() {
+  return gulp.src(stylePath, {base: 'app'})
     .pipe(plumber())
     .pipe(changed('./build/assets/styles'))
     .pipe(sourcemaps.init())
@@ -50,22 +65,29 @@ gulp.task('styles', function runTask() {
     .pipe(livereload());
 });
 
-gulp.task('copy', function runTask() {
-  gulp.src('index.html')
+gulp.task('copy', function _run() {
+  gulp.src(indexPath)
     .pipe(gulp.dest('./build'))
     .pipe(livereload());
 
-  gulp.src('app/assets/fonts/**', { base: 'app' })
+  gulp.src(fontPath, {base: 'app'})
     .pipe(changed('./build/assets/fonts'))
+    .pipe(gulp.dest('./build'))
+    .pipe(livereload());
+
+  gulp.src(menuPath, {base: 'app'})
+    .pipe(changed('./build/assets/menus'))
     .pipe(gulp.dest('./build'))
     .pipe(livereload());
 });
 
-gulp.task('default', ['js', 'images', 'styles', 'copy'], function defaultTask() {
-  gulp.watch('app/src/**/*.js', ['js']);
-  gulp.watch('app/assets/images/*', ['images']);
-  gulp.watch('app/assets/styles/main.scss', ['styles']);
-  gulp.watch('index.html', ['copy']);
+gulp.task('default', ['js', 'images', 'styles', 'copy'], function _run() {
+  gulp.watch(jsPath, ['js']);
+  gulp.watch(imagePath, ['images']);
+  gulp.watch(stylePath, ['styles']);
+  gulp.watch(indexPath, ['copy']);
+  gulp.watch(fontPath, ['copy']);
+  gulp.watch(menuPath, ['copy']);
 
   livereload.listen();
 });
