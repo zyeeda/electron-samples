@@ -1,9 +1,35 @@
-1. 运行 `npm install -g gulp` 安装 gulp
-2. 运行 `npm install -g electron-prebuilt@0.25.1` 安装 Electron
-3. 运行 `npm install -g karma-cli` 安装 karma
-4. 运行 `npm install` 安装运行项目所需的 node 组件
-5. 运行 `gulp build` 编译项目
-6. 运行 `gulp package` 打包项目
-7. 运行 `gulp watch` 编译、打包并进行 watch
-8. 运行 `gulp run` 运行项目
-9. 运行 `npm test` 测试项目
+# 如何运行
+
+```bash
+npm install gulp electron-prebuilt bunyan -g
+
+# 安装项目依赖包
+npm install
+
+# 重新编译本地库
+./node_modules/.bin/electron-rebuild -f
+
+# 编译并监视文件变化
+gulp
+```
+
+新打开一个命令行窗口，然后执行：
+
+```bash
+electron . -d | bunyan
+```
+
+# 问题解决
+
+问题1、运行程序时出现如下异常：
+
+```
+[Error: Module did not self-register.]
+{ [Error: Cannot find module './build/default/DTraceProviderBindings'] code: 'MODULE_NOT_FOUND' }
+{ [Error: Cannot find module './build/Debug/DTraceProviderBindings'] code: 'MODULE_NOT_FOUND' }
+```
+
+解决办法：
+
+执行 `./node_modules/.bin/electron-rebuild -f` 重新编译本地包。
+
