@@ -23,6 +23,7 @@
     "bunyan": "^1.4.0",
     "fluxible": "^0.4.10",
     "font-awesome": "^4.3.0",
+    "fs-plus": "^2.8.1",
     "immutable": "^3.7.3",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",

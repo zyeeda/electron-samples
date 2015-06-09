@@ -17,8 +17,7 @@ function parseCommandLine() {
     .alias('v', 'version').boolean('v').describe('v', 'Print the version.')
     .alias('d', 'dev-mode').boolean('d').describe('d', 'Run in development mode.')
     .alias('t', 'test-mode').boolean('t').describe('t', 'Run the specified specs and exit with error code on failures.')
-    .alias('l', 'log-level').string('l').describe('l', 'Log all output in this level.')
-    .alias('f', 'log-file').string('f').describe('f', 'Log all output to file.');
+    .alias('l', 'log-level').string('l').describe('l', 'Log all output in this level.');
 
   let [, ...tail] = process.argv;
   let {
@@ -26,8 +25,7 @@ function parseCommandLine() {
     version,
     'dev-mode': devMode,
     'test-mode': testMode,
-    'log-level': logLevel,
-    'log-file': logFile
+    'log-level': logLevel
   } = yargs.parse(tail);
 
   if (help) {
@@ -40,13 +38,16 @@ function parseCommandLine() {
     app.quit();
   }
 
-  return {devMode, testMode, logLevel, logFile};
+  return {devMode, testMode, logLevel};
 }
 
 function start() {
   let args = parseCommandLine();
 
   app.commandLine.appendSwitch('js-flags', '--harmony');
+  // To disable all chromium logs.
+  app.commandLine.appendSwitch('v', '-1');
+  app.commandLine.appendSwitch('vmodule', 'console=0');
   if (args.devMode) app.commandLine.appendSwitch('remote-debugging-port', '8315');
 
   let log = createLogger(args);
