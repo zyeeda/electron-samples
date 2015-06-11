@@ -3,8 +3,8 @@ import url from 'url';
 import EventEmitter from 'events';
 import BrowserWindow from 'browser-window';
 
-export default class AppWindow extends EventEmitter {
-  constructor(application) {
+export default class ApplicationWindow extends EventEmitter {
+  constructor(application, bootstrapScript) {
     super();
 
     this.log = application.log.child();
@@ -12,7 +12,7 @@ export default class AppWindow extends EventEmitter {
     this.settings = {
       devMode: application.devMode,
       testMode: application.testMode,
-      bootstrapScript: require.resolve('../renderer/main')
+      bootstrapScript
     };
 
     let windowOptions = {

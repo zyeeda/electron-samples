@@ -17,7 +17,13 @@ const eslint = require('gulp-eslint');
   name: 'Spectacular'
 };*/
 
-const jsPath = ['app/**/*.js'];
+const es6Path = [
+  'app/*.js',
+  'app/browser/**/*.js',
+  'app/renderer/**/*.js',
+  'app/specs/**/*.js'
+];
+const vendorPath = ['app/vendors/**'];
 const imagePath = ['app/assets/images/**'];
 const stylePath = ['app/assets/styles/main.scss'];
 const fontPath = ['app/assets/fonts/**'];
@@ -25,14 +31,14 @@ const menuPath = ['app/assets/menus/**'];
 const indexPath = ['app/index.html'];
 
 gulp.task('lint', function _run() {
-  return gulp.src(jsPath)
+  return gulp.src(es6Path)
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
 
 gulp.task('js', ['lint'], function _run() {
-  return gulp.src(jsPath, {base: 'app'})
+  return gulp.src(es6Path, {base: 'app'})
     .pipe(plumber())
     .pipe(changed('./build'))
     .pipe(sourcemaps.init())
@@ -67,6 +73,12 @@ gulp.task('styles', function _run() {
 
 gulp.task('copy', function _run() {
   gulp.src(indexPath)
+    .pipe(changed('./build'))
+    .pipe(gulp.dest('./build'))
+    .pipe(livereload());
+
+  gulp.src(vendorPath, {base: 'app'})
+    .pipe(changed('./build/vendors'))
     .pipe(gulp.dest('./build'))
     .pipe(livereload());
 
@@ -82,10 +94,11 @@ gulp.task('copy', function _run() {
 });
 
 gulp.task('default', ['js', 'images', 'styles', 'copy'], function _run() {
-  gulp.watch(jsPath, ['js']);
+  gulp.watch(es6Path, ['js']);
   gulp.watch(imagePath, ['images']);
   gulp.watch(stylePath, ['styles']);
   gulp.watch(indexPath, ['copy']);
+  gulp.watch(vendorPath, ['copy']);
   gulp.watch(fontPath, ['copy']);
   gulp.watch(menuPath, ['copy']);
 
