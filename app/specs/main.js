@@ -1,6 +1,8 @@
 import fs from 'fs-plus';
 
-if (global.settings.testMode) {
+let application = require('remote').getGlobal('application');
+
+if (application.testMode) {
   let Jasmine = require('jasmine');
   let jasmine = new Jasmine();
   jasmine.configureDefaultReporter({
@@ -17,7 +19,7 @@ if (global.settings.testMode) {
   let link = document.createElement('link');
   link.rel = 'stylesheet';
   // this link path is relative to `index.js`
-  link.href = './vendors/jasmine/lib/jasmine-2.3.4/jasmine.css';
+  link.href = '../vendors/jasmine/lib/jasmine-2.3.4/jasmine.css';
   document.head.appendChild(link);
 
   // all these require paths are relateive to the current file path

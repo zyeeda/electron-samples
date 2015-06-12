@@ -3,6 +3,7 @@ import EventEmitter from 'events';
 import BrowserWindow from 'browser-window';
 import createLogger from './logger';
 import ApplicationWindow from './application-window';
+import SpecWindow from './spec-window';
 import ApplicationMenu from './application-menu';
 
 export default class Application extends EventEmitter {
@@ -40,11 +41,11 @@ export default class Application extends EventEmitter {
   }
 
   createTestWindow() {
-    return new ApplicationWindow(this, require.resolve('../specs/main'));
+    return new SpecWindow(this);
   }
 
   createAppWindow() {
-    let appWindow = new ApplicationWindow(this, require.resolve('../renderer/main'));
+    let appWindow = new ApplicationWindow(this);
 
     this.appMenu = new ApplicationMenu(this);
     this.appMenu.attachToWindow(appWindow);

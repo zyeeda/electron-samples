@@ -9,6 +9,7 @@
     "it": true,
     "expect": true,
     "beforeEach": true,
+    "jasmine": true,
     "$j": true
   },
   "env": {

@@ -21,6 +21,7 @@ const es6Path = [
   'app/*.js',
   'app/browser/**/*.js',
   'app/renderer/**/*.js',
+  'app/commons/**/*.js',
   'app/specs/**/*.js'
 ];
 const vendorPath = ['app/vendors/**'];
@@ -28,7 +29,7 @@ const imagePath = ['app/assets/images/**'];
 const stylePath = ['app/assets/styles/main.scss'];
 const fontPath = ['app/assets/fonts/**'];
 const menuPath = ['app/assets/menus/**'];
-const indexPath = ['app/index.html'];
+const indexPath = ['app/**/index.html'];
 
 gulp.task('lint', function _run() {
   return gulp.src(es6Path)
@@ -72,7 +73,7 @@ gulp.task('styles', function _run() {
 });
 
 gulp.task('copy', function _run() {
-  gulp.src(indexPath)
+  gulp.src(indexPath, {base: 'app'})
     .pipe(changed('./build'))
     .pipe(gulp.dest('./build'))
     .pipe(livereload());
