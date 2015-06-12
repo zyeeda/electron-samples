@@ -16,8 +16,10 @@ gulp
 新打开一个命令行窗口，然后执行：
 
 ```bash
-electron . -d | bunyan
+npm start
 ```
+
+或者使用 `npm test` 来运行测试用例。
 
 # 问题解决
 
