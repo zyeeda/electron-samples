@@ -9,6 +9,7 @@ const livereload = require('gulp-livereload');
 const scss = require('gulp-sass');
 const concat = require('gulp-concat');
 const eslint = require('gulp-eslint');
+const jsinspect = require('gulp-jsinspect');
 // const karma = require('gulp-karma');
 // const shell = require('gulp-shell');
 // const packageJson = require('./package.json');
@@ -104,6 +105,14 @@ gulp.task('default', ['js', 'images', 'styles', 'copy'], function _run() {
   gulp.watch(menuPath, ['copy']);
 
   livereload.listen();
+});
+
+gulp.task('inspect', function _run() {
+  return gulp.src(es6Path)
+    .pipe(jsinspect({
+      'identifiers': true,
+      'suppress': 0
+    }));
 });
 
 // gulp.task('build-src', ['build-src-js', 'build-src-jsx', 'copy-src-assets']);
